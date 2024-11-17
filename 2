@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <cmath>
 using namespace std;
-void error() {
+void error() { 
 	cout << "反矩阵不存在！" << endl;
 }
 void first(int i, int m, double** arr, double** arr_1) { 
@@ -52,7 +52,7 @@ void gauss_jordan(int m, double** arr, double** arr_1) {
 }
 int main() {
 	int m, n; 
-	int i, j;
+	int i, j; 
 	cout << "请输入有多少列：";
 	cin >> m;
 	cout << "请输入有多少行：";
@@ -89,7 +89,7 @@ int main() {
 		error();
 		return 0;
 	}
-	cout << "------------反矩阵------------" << endl;
+	cout << "------------逆矩阵------------" << endl;
 	for (i = 0; i < m; i++) {
 		for (j = 0; j < m; j++) {
 			if (arr_1[i][j] == -0) 
