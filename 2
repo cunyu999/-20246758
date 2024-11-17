@@ -2,7 +2,7 @@
 #include <iomanip>
 #include <cmath>
 using namespace std;
-void error() { // 错误信息
+void error() {
 	cout << "反矩阵不存在！" << endl;
 }
 void first(int i, int m, double** arr, double** arr_1) { 
@@ -14,7 +14,7 @@ void first(int i, int m, double** arr, double** arr_1) {
 		arr_1[i][j] = arr_1[i][j] / tmp;
 	}
 }
-void zero(int i, int m, double** arr, double** arr_1) { // 將前導壹的上下列變為零
+void zero(int i, int m, double** arr, double** arr_1) { 
 	int j, k;
 	double tmp;
 	for (j = 0; j < m; j++) {
@@ -27,7 +27,7 @@ void zero(int i, int m, double** arr, double** arr_1) { // 將前導壹的上下
 		}
 	}
 }
-void gauss_jordan(int m, double** arr, double** arr_1) { // 高登-喬登消去法
+void gauss_jordan(int m, double** arr, double** arr_1) { 
 	int i, j;
 	double tmp;
 	for (i = 0; i < m; i++) {
@@ -61,8 +61,8 @@ int main() {
 		error();
 		return 0;
 	}
-	double** arr; // 設定動態二維陣列
-	double** arr_1; // 設定反矩陣的動態二維陣列
+	double** arr; 
+	double** arr_1; 
 	arr = new double* [m];
 	arr_1 = new double* [m];
 	for (i = 0; i < m; i++) {
@@ -73,9 +73,9 @@ int main() {
 		for (j = 0; j < n; j++) {
 			cout << "请输入第" << i + 1 << "列第" << j + 1 << "行的內容：";
 			cin >> arr[i][j];
-			arr_1[i][j] = 0; // 設置反矩陣的初值
+			arr_1[i][j] = 0; 
 		}
-		arr_1[i][i] = 1; // 設置反矩陣的初值
+		arr_1[i][i] = 1; 
 	}
 	cout << "----------输入的矩陣----------" << endl;
 	for (i = 0; i < m; i++) {
@@ -92,13 +92,13 @@ int main() {
 	cout << "------------反矩阵------------" << endl;
 	for (i = 0; i < m; i++) {
 		for (j = 0; j < m; j++) {
-			if (arr_1[i][j] == -0) // 將-0轉換為0
+			if (arr_1[i][j] == -0) 
 				arr_1[i][j] = fabs(arr_1[i][j]);
 			cout << fixed << setprecision(3) << arr_1[i][j] << "\t";
 		}
 		cout << endl;
 	}
-	for (int i = 0; i < m; i++) { // 清除記憶體
+	for (int i = 0; i < m; i++) { 
 		delete[] arr[i];
 		delete[] arr_1[i];
 	}
