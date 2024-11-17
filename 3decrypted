@@ -1,0 +1,8 @@
+def xor_encrypt(message, key):
+    return ''.join(chr(ord(c) ^ ord(k)) for c, k in zip(message, key * (len(message) // len(key) + 1)))
+f1 = open('/home/ros/无标题文档 1')  #输入文件路径
+message = f1.read()
+key = "123456"
+decrypted= xor_encrypt(message, key)
+print(f"原文: {message}")
+print(f"解密后: {decrypted}")
