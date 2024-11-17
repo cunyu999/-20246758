@@ -1,0 +1,108 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+void error() { // 错误信息
+	cout << "反矩阵不存在！" << endl;
+}
+void first(int i, int m, double** arr, double** arr_1) { 
+	double tmp;
+	int j;
+	tmp = arr[i][i];
+	for (j = 0; j < m; j++) {
+		arr[i][j] = arr[i][j] / tmp;
+		arr_1[i][j] = arr_1[i][j] / tmp;
+	}
+}
+void zero(int i, int m, double** arr, double** arr_1) { // 將前導壹的上下列變為零
+	int j, k;
+	double tmp;
+	for (j = 0; j < m; j++) {
+		if (j == i)
+			continue;
+		tmp = -1 * arr[j][i];
+		for (k = 0; k < m; k++) {
+			arr[j][k] = arr[j][k] + (tmp * arr[i][k]);
+			arr_1[j][k] = arr_1[j][k] + (tmp * arr_1[i][k]);
+		}
+	}
+}
+void gauss_jordan(int m, double** arr, double** arr_1) { // 高登-喬登消去法
+	int i, j;
+	double tmp;
+	for (i = 0; i < m; i++) {
+		if (arr[i][i] == 0) {
+			if (i == (m - 1)) {
+				break;
+			}
+			else {
+				for (j = 0; j < m; j++) {
+					arr[i][j] = arr[i][j] + arr[i + 1][j];
+					arr_1[i][j] = arr_1[i][j] + arr_1[i + 1][j];
+				}
+				first(i, m, arr, arr_1);
+				zero(i, m, arr, arr_1);
+			}
+		}
+		else {
+			first(i, m, arr, arr_1);
+			zero(i, m, arr, arr_1);
+		}
+	}
+}
+int main() {
+	int m, n; // 列 行
+	int i, j; // 迴圈用
+	cout << "请输入有多少列：";
+	cin >> m;
+	cout << "请输入有多少行：";
+	cin >> n;
+	if (m != n) {
+		error();
+		return 0;
+	}
+	double** arr; // 設定動態二維陣列
+	double** arr_1; // 設定反矩陣的動態二維陣列
+	arr = new double* [m];
+	arr_1 = new double* [m];
+	for (i = 0; i < m; i++) {
+		arr[i] = new double[n];
+		arr_1[i] = new double[n];
+	}
+	for (i = 0; i < m; i++) { // 輸入矩陣
+		for (j = 0; j < n; j++) {
+			cout << "请输入第" << i + 1 << "列第" << j + 1 << "行的內容：";
+			cin >> arr[i][j];
+			arr_1[i][j] = 0; // 設置反矩陣的初值
+		}
+		arr_1[i][i] = 1; // 設置反矩陣的初值
+	}
+	cout << "----------输入的矩陣----------" << endl;
+	for (i = 0; i < m; i++) {
+		for (j = 0; j < n; j++) {
+			cout << arr[i][j] << "\t";
+		}
+		cout << endl;
+	}
+	gauss_jordan(m, arr, arr_1);
+	if (arr[m - 1][m - 1] == 0) {
+		error();
+		return 0;
+	}
+	cout << "------------反矩阵------------" << endl;
+	for (i = 0; i < m; i++) {
+		for (j = 0; j < m; j++) {
+			if (arr_1[i][j] == -0) // 將-0轉換為0
+				arr_1[i][j] = fabs(arr_1[i][j]);
+			cout << fixed << setprecision(3) << arr_1[i][j] << "\t";
+		}
+		cout << endl;
+	}
+	for (int i = 0; i < m; i++) { // 清除記憶體
+		delete[] arr[i];
+		delete[] arr_1[i];
+	}
+	delete[] arr;
+	delete[] arr_1;
+	return 0;
+}
