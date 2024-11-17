@@ -51,8 +51,8 @@ void gauss_jordan(int m, double** arr, double** arr_1) {
 	}
 }
 int main() {
-	int m, n; // 列 行
-	int i, j; // 迴圈用
+	int m, n; 
+	int i, j;
 	cout << "请输入有多少列：";
 	cin >> m;
 	cout << "请输入有多少行：";
@@ -69,7 +69,7 @@ int main() {
 		arr[i] = new double[n];
 		arr_1[i] = new double[n];
 	}
-	for (i = 0; i < m; i++) { // 輸入矩陣
+	for (i = 0; i < m; i++) { 
 		for (j = 0; j < n; j++) {
 			cout << "请输入第" << i + 1 << "列第" << j + 1 << "行的內容：";
 			cin >> arr[i][j];
@@ -77,7 +77,7 @@ int main() {
 		}
 		arr_1[i][i] = 1; 
 	}
-	cout << "----------输入的矩陣----------" << endl;
+	cout << "----------输入的矩阵----------" << endl;
 	for (i = 0; i < m; i++) {
 		for (j = 0; j < n; j++) {
 			cout << arr[i][j] << "\t";
