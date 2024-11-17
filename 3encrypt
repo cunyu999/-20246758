@@ -1,0 +1,18 @@
+def xor_encrypt(message, key):
+    return ''.join(chr(ord(c) ^ ord(k)) for c, k in zip(message, key * (len(message) // len(key) + 1)))
+
+
+f1 = open('/home/ros/无标题文档 1')  #输入文件路径
+message = f1.read()
+key = "20246758"
+
+encrypted = xor_encrypt(message, key)
+file = open('encrypted', 'w')  # 以写入模式打开文件
+file.write(encrypted)  # 写入字符串到文件
+
+
+print(f"原文: {message}")
+print(f"加密后: {encrypted}")
+
+
+
